@@ -7,7 +7,7 @@
     "dev": "nodemon index.js",
     "start": "node index.js"
   },
-  "author": "Marcos Santos",
+  "author": "",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.24.0",

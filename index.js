@@ -1,3 +1,4 @@
+
 const express = require('express')
 const app = express()
 const fs= require('fs')
@@ -13,7 +14,12 @@ app.use(express.urlencoded()); //Parse URL-encoded bodies
 app.use(express.json())
 app.use(cors())
 
+// set view engine
+app.set("view engine", "ejs")
+//app.set("views", path.resolve(__dirname, "views/ejs"))
 
+// load assets
+app.use(express.static('assets'));
 
 
 app.get('/', (req, res) => {
@@ -27,13 +33,46 @@ app.get('/', (req, res) => {
 
 })
 
+app.get('/update-user/', (req, res) => {
+    axios.get('http://localhost:3000/update-user/:username')
+        .then(function(response){
+            //console.log(finds)
+           res.render('update_user', {username: req.query.username,
+            age: req.query.age,
+            fullname: req.query.fullname,
+            password: req.query.password})
+            
+        })
+        .catch(err =>{
+            res.send(err);
+        })
 
-// set view engine
-app.set("view engine", "ejs")
-//app.set("views", path.resolve(__dirname, "views/ejs"))
+})
 
-// load assets
-app.use(express.static('assets'));
+
+
+
+
+app.get('/update-user/:username', (req, res)=> {
+       //get the username from url
+       const username = req.params.username
+       //get the update data
+      
+       const existUsers = getUserData()
+       //check if the username exist or not       
+       const finds = existUsers.filter( user => user.username === username)
+      if(finds){
+       res.send(finds)
+      }else{ 
+          res.status(404).send({ message : "Not found user with id "+ username})
+          
+      }
+      
+      
+
+})
+
+
 
 /* Create - POST method */
 app.post('/user/add', (req, res) => {
@@ -42,7 +81,9 @@ app.post('/user/add', (req, res) => {
 //get the existing user data
 const existUsers = getUserData()
 
+
 const userData = req.body
+
 
 //get the new user data from post request
 
@@ -78,6 +119,25 @@ app.get('/user/list', (req, res) => {
     res.send(users)
 })
 
+// app.get('/update/:username', (req,res) =>{
+
+//     //get the username from url
+//     const username = req.params.username
+//     //get the update data
+   
+//     const existUsers = getUserData()
+//     //check if the username exist or not       
+//     const findExist = existUsers.find( user => user.username === username )
+//     if (!findExist) {
+//         return res.status(409).send({error: true, msg: 'username not exist'})
+//     }
+//     else{
+//         res.send(findExist);
+
+//     }
+// })
+
+
 
 /* Update - Patch method */
 app.patch('/user/update/:username', (req, res) => {
@@ -97,7 +157,7 @@ app.patch('/user/update/:username', (req, res) => {
     const updateUser = existUsers.filter( user => user.username !== username )
     //push the updated data
     updateUser.push(userData)
-    res.send(userData);
+    
     //finally save it
     saveUserData(updateUser)
     
@@ -138,9 +198,7 @@ app.get('/add-user', (req, res) =>{
     res.render('add_user')
 })
 
-app.get('/update-user', (req, res) =>{
-    res.render('update_user')
-})
+
 
 
 //configure the server port

@@ -1,0 +1,57 @@
+
+<!-- include header -->
+<%- include('include/_header') %>
+<!-- /include header -->
+
+  <!-- Main Site -->
+  <main id="site-main">
+    <div class="container">
+        <div class="box-nav d-flex justify-between">
+           <div class="filter">
+               <a href="/"><i class="fas fa-angle-double-left"></i> All Users</a>
+           </div>
+        </div>
+        <div class="form-title text-center">
+            <h2 class="text-dark">Update User</h2>
+            <span class="text-light">Use the below form to Update an account</span>
+        </div>
+
+        <!-- add user form -->
+
+       
+ <form method="POST" id="update_user">
+    <div class="new_user">
+        <div class="form-group">
+            <label  class="text-light">Username</label>
+            <input type="text" name="username" value="<%= username %>"  readonly  class="form-control" placeholder="Enter Username">
+        </div>
+        <div class="form-group">
+            <label  class="text-light">Full Name</label>
+            <input type="text" name="fullname" value="<%= fullname %>"  class="form-control" placeholder="Enter Full Name">
+        </div>
+
+        <div class="form-group">
+            <label  class="text-light">Age</label>
+            <input type="number" name="age" class="form-control" value="<%= age %>"   placeholder="How old are you">
+        </div>
+
+        <div class="form-group">
+            <label  class="text-light">Password</label>
+            <input type="text" name="password"  class="form-control"  value="<%= password %>"  placeholder="enter password">
+        </div>
+      
+  
+        <div class="form-group mt-2">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+
+    </div>
+</form>
+
+    </div>
+</main>
+<!-- /Main Site -->
+
+<!-- include footer -->
+<%- include('include/_footer') %>
+<!-- /include footer -->

@@ -6,7 +6,9 @@
     <td><%= users[i].age %></td>
     
     <td>
-       
+        <a href="/update-user?username=<%= users[i].username%>&fullname=<%= users[i].fullname%>&age=<%= users[i].age%>&password=<%= users[i].password%>" class="btn border-shadow update">
+            <span class="text-gradient"><i class="fas fa-pencil-alt"></i></span>
+        </a>
       
         <a class="btn border-shadow delete" data-id=<%= users[i].username%> >
             <span class="text-gradient"><i class="fas fa-times"></i></span>
