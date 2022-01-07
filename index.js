@@ -88,7 +88,7 @@ const userData = req.body
 //get the new user data from post request
 
 //check if the userData fields are missing
-if (userData.fullname == null || userData.age == null || userData.username == null || userData.password == null) {
+if (userData.fullname == null || userData.fullname == ''  || userData.age == null  || userData.age == '' || userData.username == null  || userData.username == '' || userData.password == null || userData.password == '') {
     //return res.status(401).send({error: true, msg: 'User data missing'})
    return  res.status(500).send({
         message : {error: true, msg: 'User data missing'}
